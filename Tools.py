@@ -7,6 +7,7 @@ email: duxin_be@outlook.com
 '''
 
 from sklearn.decomposition import PCA
+from sklearn.metrics import roc_curve,auc
 
 class dataPool():
     def __init__(self, data, axis = 1):
@@ -47,3 +48,8 @@ def pcaProcess(Xtrain, Xdev = None, Xtest = None, n_components = 5):
         Xtest = pca.transform(Xtest)
         dataset.append(Xtest)
     return dataset
+
+def calculateAuc(y, predy):
+    fpr, tpr, threshold = roc_curve(y, predy)
+    AUC = auc(fpr, tpr)
+    return AUC
